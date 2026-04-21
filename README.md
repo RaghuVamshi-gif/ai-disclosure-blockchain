@@ -39,3 +39,112 @@ be changed or deleted by anyone including us.
 | Hashing | SHA-256 (Node.js crypto) |
 
 ## Project Structure
+ai-disclosure-blockchain/
+│
+├── contracts/
+│   └── AIDisclosure.sol       # Smart contract
+│
+├── scripts/
+│   └── deploy.js              # Deployment script
+│
+├── test/
+│   └── AIDisclosure.test.js   # Smart contract tests
+│
+├── backend/
+│   └── server.js              # Node.js REST API
+│
+├── frontend/
+│   └── src/
+│       └── App.jsx            # React frontend
+│
+├── hardhat.config.js          # Blockchain configuration
+└── deployment.json            # Generated after deploy
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | /api/disclose | Record a new AI disclosure |
+| GET | /api/verify/:hash | Verify a disclosure by content hash |
+| POST | /api/hash | Get SHA-256 hash of content |
+| GET | /api/history/:address | Get all disclosures by a wallet address |
+
+## Smart Contract Functions
+
+| Function | Description |
+|---|---|
+| recordDisclosure() | Stores AI disclosure permanently on blockchain |
+| verifyDisclosure() | Retrieves disclosure details by content hash |
+| getCreatorHistory() | Returns all content hashes by a creator address |
+
+## How to Run
+
+### Prerequisites
+- Node.js v22 or higher
+- WSL (Windows Subsystem for Linux) or Linux/Mac terminal
+
+### Step 1 - Clone the repository
+git clone https://github.com/yourusername/ai-disclosure-blockchain.git
+cd ai-disclosure-blockchain
+
+### Step 2 - Install dependencies
+npm install
+cd frontend && npm install
+cd ..
+
+### Step 3 - Start the blockchain node (Terminal 1)
+npx hardhat node
+
+### Step 4 - Deploy the smart contract (Terminal 2)
+npx hardhat run scripts/deploy.js --network localhost
+
+### Step 5 - Start the backend (Terminal 3)
+node backend/server.js
+
+### Step 6 - Start the frontend (Terminal 4)
+cd frontend
+npm run dev
+
+### Step 7 - Open browser
+http://localhost:5173
+
+## Running Tests
+npx hardhat test
+
+### Test Results
+AIDisclosure
+✔ should record a disclosure and emit event
+✔ should retrieve a recorded disclosure correctly
+✔ should return false for unknown content hash
+✔ should reject duplicate disclosures for the same content
+✔ should track creator history
+5 passing
+
+## Why Blockchain
+
+| Problem | Our Solution |
+|---|---|
+| Disclosures can be deleted | Blockchain records are permanent |
+| Disclosures can be edited | Blockchain records are immutable |
+| No way to verify | Anyone can query the blockchain |
+| Detection tools are inaccurate | We record declarations not detections |
+| False accusations | No detection means no false accusations |
+
+## Default Test Wallet
+When running locally the default Hardhat wallet address is:
+0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+Use this address in the Creator History tab to see all recorded disclosures.
+
+## Future Improvements
+- Deploy to Sepolia public testnet
+- MetaMask wallet integration for real user identities
+- IPFS storage for actual content
+- Browser extension for automatic verification
+- Mobile application
+
+## Team
+- Project: Blockchain Based AI Content Disclosure System
+- Technology: Ethereum Blockchain + React + Node.js
+
+## License
+MIT License
